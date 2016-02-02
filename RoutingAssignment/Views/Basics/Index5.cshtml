@@ -1,0 +1,56 @@
+﻿@using Microsoft.AspNet.Identity
+@model IEnumerable<RoutingAssignment.Models.Basic>
+
+@{
+    ViewBag.Title = "Index5";
+}
+
+<h2>Index3</h2>
+
+@Html.ActionLink("All", "Index")<br />
+@Html.ActionLink("A", "Index2")<br />
+@Html.ActionLink("Date", "Index4")<br />
+@Html.ActionLink("Sorted and Group LINQ", "Index3")
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Title)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Date)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.User.UserName)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in ViewBag.Deposit)
+    {
+        foreach (var a in item)
+        {
+
+
+            <tr>
+                <td>
+                    @a.Title.ToString()
+                </td>
+                <td>
+                    @a.Description.ToString()
+                </td>
+                <td>
+                    @a.Date.ToString()
+                </td>
+                <td>
+                    @a.User.UserName
+                </td>
+                <td>
+                    @Html.ActionLink("Details", "Details", new { id = a.Id })
+                </td>
+            </tr>
+        }
+    }
+</table>

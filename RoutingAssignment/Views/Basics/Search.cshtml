@@ -1,0 +1,89 @@
+﻿@using Microsoft.AspNet.Identity
+@model IEnumerable<RoutingAssignment.Models.Basic>
+
+@{
+    ViewBag.Title = "Search";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+@Html.ActionLink("A", "Index2")<br />
+@Html.ActionLink("Date", "Index4")<br />
+@Html.ActionLink("Grouped Sorted LINQ", "Index3")<br />
+@Html.ActionLink("Sorted and Group Lamdba", "Index5")
+<br />
+@*<input type="text" name="Search" value="Title" />*@
+@using (Html.BeginForm("Search", "Basics"))
+{
+    @Html.TextBox("Title");
+    <input type="submit" name="Search" value="Search" onclick="Search" />
+}
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Title)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Date)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.User.UserName)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        if (item.UserId != User.Identity.GetUserId())
+        {
+            <tr>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Date)
+                <td>
+                    @item.User.UserName
+                </td>
+                <td>
+                    @Html.ActionLink("Details", "Details", new { id = item.Id })
+                </td>
+            </tr>
+
+        }
+        else
+        {
+            <tr>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Date)
+                </td>
+                <td>
+                    @item.User.UserName
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.Id })|
+                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                </td>
+            </tr>
+        }
+    }
+</table>
